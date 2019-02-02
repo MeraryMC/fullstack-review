@@ -23,7 +23,8 @@ app.post('/repos', function (req, res) {
       save({
         id: results.id,
         name: results.name,
-        forks_count: results.forks_count
+        forks_count: results.forks_count,
+        repo_url: results.url
       });
     });
   });
@@ -33,23 +34,14 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   //this returns a promise; all methods on mongoose return promises
     //save returns a promise as well
-  Repo.find({})
-  .then(results => {
+   Repo.find().sort({forks_count: -1}).limit(25).exec()
+   .then(results => {
     console.log(results)
     if (!results){
       return res.status(500).send({})
     }
     return res.status(200).send(results);
   })
-
-
-
-  // Repo.find((err, repos) => {
-  //   if (err) {
-  //     return res.status(500).send(err)
-  //   }
-  //   return res.status(200).send(repos);
-  // });
 });
 
 let port = 1128;

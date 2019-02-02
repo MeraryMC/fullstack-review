@@ -25,12 +25,8 @@ class App extends React.Component {
       url: 'http://localhost:1128/repos',
       method: 'GET',
       success: data => {
-        var info = [];
-        for (var i = 0; i < data.length; i++) {
-          info.push(data[i]);
-        }
         this.setState({
-          repos: info
+          repos: data
         }), console.log(data)},
       error:  () => console.log('Error in GET request')
     });
