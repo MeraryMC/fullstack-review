@@ -1,6 +1,6 @@
 const express = require('express');
-const {db, save} = require('../database/index.js');
-const gh = require('../helpers/github.js');
+const db = require('../database/index');
+const gh = require('../helpers/github');
 const bodyParser = require('body-parser');
 
 
@@ -12,14 +12,22 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.text());
 
 app.post('/repos', function (req, res) {
-  var postRepos = results => results._each(save);
-  gh.getReposByUsername(req.body, postRepos);
-  res.status(200).send('Repo Post Successful!')
+  var username = req.body.getReposByUsername;
+  gh.getReposByUsername(username, (data) => {
+    var resultObj = JSON.parse(data);
+    resultObj.forEach((results) => {
+      db.save({
+        id: results.id,
+        name: results.name,
+        forks_count: results.forks_count
+      });
+    });
+  });
+  res.end();
 });
 
 app.get('/repos', function (req, res) {
-  res.status(200);
-  res.send(results);
+  res.send('hello');
 
 });
 

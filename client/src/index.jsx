@@ -20,30 +20,21 @@ class App extends React.Component {
     $.ajax({
       url: 'http://localhost:1128/repos',
       method: 'GET',
-      success: function () {
-        this.setState({repos: results});
-      },
-      error: function() {
-        console.log('Error in POST request')
-      }
+      success: data => { this.setState({repos: data}); },
+      error:  () => console.log('Error in GET request')
     });
-
   }
 
   search (term) {
     console.log(`${term} was searched`);
     var that = this;
     $.ajax({
-      type: 'POST',
       url: 'http://localhost:1128/repos',
-      contentType: 'application/json',
-      data: JSON.stringify(term),
-      success: function() {
-        that.getRepos();
-      },
-      error: function() {
-        console.log('Error in POST request')
-      }
+      type: 'POST',
+      contentType: 'text/plain',
+      data: term,
+      success: () => { this.getRepos() },
+      error: () => console.log('Error in POST request')
     });
   }
 
