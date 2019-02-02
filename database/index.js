@@ -11,7 +11,8 @@ db.once('open', function() {
 let repoSchema = mongoose.Schema({
   id: Number,
   name: { type: String, required: true, unique: true},
-  forks_count: Number
+  forks_count: Number,
+  html_url: String
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -21,7 +22,8 @@ let save = (results) => {
   let newRepo = new Repo({
     id: results.id,
     name: results.name,
-    forks_count: results.forks_count
+    forks_count: results.forks_count,
+    html_url: results.html_url
   });
   newRepo.save(err => {
     if (err) {

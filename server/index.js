@@ -24,7 +24,7 @@ app.post('/repos', function (req, res) {
         id: results.id,
         name: results.name,
         forks_count: results.forks_count,
-        repo_url: results.url
+        html_url: results.html_url
       });
     });
   });

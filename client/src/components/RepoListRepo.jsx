@@ -3,7 +3,7 @@ import React from 'react';
 const RepoListRepo = (props) => (
   <div>
     <tr>
-      <td>Repo: {props.repo.name} has been forked {props.repo.forks_count} times.</td>
+      <td>Repo: <a href={props.repo.html_url}>{props.repo.name}</a> has been forked {props.repo.forks_count} times.</td>
     </tr>
   </div>
 )
