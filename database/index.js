@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
+var uniqueValidator = require('mongoose-unique-validator');
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -9,7 +10,7 @@ db.once('open', function() {
 
 let repoSchema = mongoose.Schema({
   id: Number,
-  name: String,
+  name: { type: String, required: true, unique: true},
   forks_count: Number
 });
 
