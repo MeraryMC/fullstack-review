@@ -24,7 +24,14 @@ class App extends React.Component {
     $.ajax({
       url: 'http://localhost:1128/repos',
       method: 'GET',
-      success: data => (console.log(data)),
+      success: data => {
+        var info = [];
+        for (var i = 0; i < data.length; i++) {
+          info.push(data[i]);
+        }
+        this.setState({
+          repos: info
+        }), console.log(data)},
       error:  () => console.log('Error in GET request')
     });
   }
@@ -44,8 +51,8 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }
