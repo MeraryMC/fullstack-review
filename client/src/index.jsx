@@ -16,11 +16,15 @@ class App extends React.Component {
 
   }
 
+  componentDidMount () {
+    this.getRepos();
+  }
+
   getRepos () {
     $.ajax({
       url: 'http://localhost:1128/repos',
       method: 'GET',
-      success: data => { this.setState({repos: data}); },
+      success: data => (console.log(data)),
       error:  () => console.log('Error in GET request')
     });
   }
@@ -30,10 +34,9 @@ class App extends React.Component {
     var that = this;
     $.ajax({
       url: 'http://localhost:1128/repos',
-      type: 'POST',
-      contentType: 'text/plain',
-      data: term,
-      success: () => { this.getRepos() },
+      method: 'POST',
+      data: {term},
+      success: () => { that.getRepos() },
       error: () => console.log('Error in POST request')
     });
   }

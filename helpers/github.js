@@ -15,7 +15,7 @@ let getReposByUsername = (username, callback) => {
       console.log('Error in GH Helper');
       console.log(err);
     } else {
-      return JSON.parse(body);
+      callback(JSON.parse(body));
     }
   });
 }
