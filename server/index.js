@@ -1,18 +1,26 @@
 const express = require('express');
+const {db, save} = require('../database/index.js');
+const gh = require('../helpers/github.js');
+const bodyParser = require('body-parser');
+
+
+
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 
+app.use(bodyParser.text());
+
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
+  var postRepos = results => results._each(save);
+  gh.getReposByUsername(req.body, postRepos);
+  res.status(200).send('Repo Post Successful!')
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  res.status(200);
+  res.send(results);
+
 });
 
 let port = 1128;
