@@ -41,7 +41,7 @@ class App extends React.Component {
       method: 'POST',
       data: {term},
       success: function() {
-        that.getRepos()
+        that.getRepos();
       },
       error: () => console.log('Error in POST request')
     });

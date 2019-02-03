@@ -12,7 +12,7 @@ let repoSchema = mongoose.Schema({
   id: Number,
   name: { type: String, required: true, unique: true},
   forks_count: Number,
-  html_url: String
+  html_url: { type: String, required: true, unique: true}
 });
 
 let Repo = mongoose.model('Repo', repoSchema);

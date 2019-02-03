@@ -27,8 +27,8 @@ app.post('/repos', function (req, res) {
         html_url: results.html_url
       });
     });
+    res.send();
   });
-  res.send();
 });
 
 app.get('/repos', function (req, res) {
