@@ -8,7 +8,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoaded: false,
       repos: []
     }
 
@@ -16,19 +15,21 @@ class App extends React.Component {
 
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getRepos();
   }
 
-  getRepos () {
+  getRepos() {
+    var that = this;
     $.ajax({
       url: 'http://localhost:1128/repos',
       method: 'GET',
-      success: data => {
-        this.setState({
+      success: function(data) {
+        that.setState({
           repos: data
-        }), console.log(data)},
-      error:  () => console.log('Error in GET request')
+        });
+      },
+      error: () => console.log('Error in GET request')
     });
   }
 
@@ -39,7 +40,9 @@ class App extends React.Component {
       url: 'http://localhost:1128/repos',
       method: 'POST',
       data: {term},
-      success: () => { that.getRepos() },
+      success: function() {
+        that.getRepos()
+      },
       error: () => console.log('Error in POST request')
     });
   }

@@ -7,8 +7,9 @@ const RepoList = (props) => (
     Here are the top {props.repos.length} repos:
     <div>{"\n"}</div>
     <br></br>
-    <div>{props.repos.map(repo => <RepoListRepo repo={repo}/>)}</div>
+    <div>{props.repos.map(repo => <RepoListRepo key={repo._id} repo={repo}/>)}</div>
   </div>
 )
 
 export default RepoList;
+
